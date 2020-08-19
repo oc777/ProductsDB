@@ -17,11 +17,12 @@ namespace ProductsDB
         {
             var host = CreateHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                DbInit.Init(context);
-            }
+            //using (var scope = host.Services.CreateScope())
+            //{
+            //    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            //    DbInit.Init(context);
+            //}
+            DbInit.Init();
 
             host.Run();
         }

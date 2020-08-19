@@ -29,9 +29,9 @@ namespace ProductsDB
 
             // use SQLite
             //services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=./data/products.db"));
-            //services.AddDbContext<AppDbContext>();
-            services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("AppDbContext")));
+            services.AddDbContext<AppDbContext>();
+            //services.AddDbContext<AppDbContext>(options =>
+            //        options.UseSqlite(Configuration.GetConnectionString("AppDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

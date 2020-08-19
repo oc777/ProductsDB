@@ -5,15 +5,17 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using ProductsDB.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProductsDB.Data
 {
     public static class DbInit
     {
-        
-        public static void Init(AppDbContext context)
+
+        //public static void Init(AppDbContext context)
+        public static void Init()
         {
-            //var context = new AppDbContext();
+            var context = new AppDbContext();
 
             // delete & create DB schema
             context.Database.EnsureDeleted();
@@ -54,6 +56,29 @@ namespace ProductsDB.Data
             Console.WriteLine(prices.Count);
             Console.WriteLine(products.Count);
             Console.WriteLine(markets.Count);
+
+            // bulk insert into tables
+            context.BulkInsert(products, options =>
+            {
+                // skip duplicates
+                options.InsertIfNotExists = true;
+                // suppose to speed up the process a bit?
+                options.AutoMapOutputDirection = false;
+            });
+
+            context.BulkInsert(markets, options =>
+            {
+                options.InsertIfNotExists = true;
+                options.AutoMapOutputDirection = false;
+            });
+
+            context.BulkInsert(prices, options =>
+            {
+                // insery the PK as in csv file
+                options.InsertKeepIdentity = true;
+                options.AutoMapOutputDirection = false;
+            });
+
         }
 
     }

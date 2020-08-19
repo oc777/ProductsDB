@@ -16,5 +16,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.7" />
     <PackageReference Include="CsvHelper" Version="15.0.5" />
+    <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.89" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Data\SeedData\price_detail.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\SeedData\price_detail.csv" />
   </ItemGroup>
 </Project>
