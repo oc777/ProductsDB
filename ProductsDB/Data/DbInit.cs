@@ -11,7 +11,7 @@ namespace ProductsDB.Data
             //var context = new AppDbContext();
 
             // delete & create DB schema
-            // context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             // seed db if empty

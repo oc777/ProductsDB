@@ -16,12 +16,12 @@ namespace ProductsDB.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<PriceDetail> PriceDetails { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // TODO: put connection string in config
-            optionsBuilder.UseSqlite("Data Source=products.db");
-            base.OnConfiguring(optionsBuilder);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    // TODO: put connection string in config
+        //    optionsBuilder.UseSqlite("Data Source=products.db");
+        //    base.OnConfiguring(optionsBuilder);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
