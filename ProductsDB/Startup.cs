@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProductsDB.Data;
 
 namespace ProductsDB
 {
@@ -24,6 +26,12 @@ namespace ProductsDB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            // use SQLite
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlite("Data Source=./data/products.db"));
+            //services.AddDbContext<AppDbContext>();
+            services.AddDbContext<AppDbContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("AppDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
