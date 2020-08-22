@@ -1,0 +1,18 @@
+﻿@page "{id?}"
+@model SkuModel
+@{
+    ViewData["Title"] = "Product "+ @Model.ProductId;
+}
+
+<h1>Product </h1>
+
+@if (Model.ShowProduct)
+{
+    <p>
+        <strong>Product ID:</strong> <code>@Model.ProductId</code>
+    </p>
+}
+else
+{
+    <p>Nothing to show</p>
+}
