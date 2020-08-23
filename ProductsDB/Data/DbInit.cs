@@ -18,7 +18,7 @@ namespace ProductsDB.Data
             var context = new AppDbContext();
 
             // delete & create DB schema
-            context.Database.EnsureDeleted();
+            // context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             // seed db if empty
@@ -48,9 +48,12 @@ namespace ProductsDB.Data
                 // go to the begining of stream
                 stream.Position = 0;
                 products = csv.GetRecords<Product>().ToList();
+                // remove parsed header
+                products.RemoveAt(0);
 
                 stream.Position = 0;
                 markets = csv.GetRecords<Market>().ToList();
+                markets.RemoveAt(0);
             }
 
             Console.WriteLine(prices.Count);
