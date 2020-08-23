@@ -1,7 +1,7 @@
 ﻿@page "{id?}"
 @model SkuModel
 @{
-    ViewData["Title"] = "Product "+ @Model.ProductId;
+    ViewData["Title"] = "Product Prices";
 }
 
 <h1>Product </h1>
@@ -9,10 +9,46 @@
 @if (Model.ShowProduct)
 {
     <p>
-        <strong>Product ID:</strong> <code>@Model.ProductId</code>
+        <strong>ID:</strong> <code>@Model.ProductId</code>
     </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Marknad</th>
+                <th>Pris</th>
+                <th>Valuta</th>
+                <th>Start och slut</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OptimisedPrices)
+            {
+                var price = item.UnitPrice.ToString("#.##");
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MarketId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelIem => item.CurrencyCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ValidFrom)
+                        <span> - </span>
+                        @Html.DisplayFor(modelItem => item.ValidUntil)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {
-    <p>Nothing to show</p>
+    <p>Some products...</p>
+    @foreach (var item in Model.Products)
+    {
+        <div><a href="/sku/@(item.CatalogEntryCode)">@item.CatalogEntryCode</a></div>
+    }
 }
