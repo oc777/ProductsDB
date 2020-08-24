@@ -29,6 +29,7 @@ namespace ProductsDB.Data
             modelBuilder.Entity<Market>().ToTable("Market");
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<PriceDetail>().ToTable("PriceDetail");
+            modelBuilder.Entity<OptimisedPrice>().HasNoKey();
         }
 
     }
