@@ -46,10 +46,5 @@
 }
 else
 {
-    @*<p>Some products...</p>
-    @foreach (var item in Model.Products)
-    {
-        <div><a href="/sku/@(item.CatalogEntryCode)">@item.CatalogEntryCode</a></div>
-    }*@
     <p>Product @Model.ProductId not found</p>
 }
