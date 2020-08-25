@@ -1,0 +1,16 @@
+﻿@page
+@model SkuIndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Products</h1>
+
+    <p>Some sample products...</p>
+    <div><a href="/sku/27773-02">27773-02</a></div>
+    @foreach (var item in Model.Products)
+    {
+        <div><a href="/sku/@(item.CatalogEntryCode)">@item.CatalogEntryCode</a></div>
+    }
+</div>

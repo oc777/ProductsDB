@@ -32,6 +32,12 @@ namespace ProductsDB
             services.AddDbContext<AppDbContext>();
             //services.AddDbContext<AppDbContext>(options =>
             //        options.UseSqlite(Configuration.GetConnectionString("AppDbContext")));
+
+            services.AddMvc()
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AddPageRoute("/Sku/Sku", "Sku/{id}");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

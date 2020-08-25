@@ -16,9 +16,9 @@ namespace ProductsDB.Pages
     {
         public AppDbContext _context;
         public string ProductId { get; set; }
-        public bool ShowProduct => !string.IsNullOrEmpty(ProductId);
+        public bool ShowProduct { get; set; }
+        //=> !string.IsNullOrEmpty(ProductId);
 
-        public IQueryable<Product> Products { get; set; }
         public IQueryable<PriceDetail> ProductPrices { get; set; }
         public List<OptimisedPrice> OptimisedPrices { get; set; }
 
@@ -32,7 +32,8 @@ namespace ProductsDB.Pages
 
         public void OnGet(string id)
         {
-            ProductId = id.Equals("all") ? null : id;
+            ProductId = id;
+            ShowProduct = _context.PriceDetails.Any(e => e.CatalogEntryCode == id);
 
             if (ShowProduct)
             {
@@ -45,13 +46,7 @@ namespace ProductsDB.Pages
 
                 calculateOptimisedPrices(ProductPrices.ToList());
             }
-            else
-            {
-                // show list with 10 products
-                Products = _context.Products.AsNoTracking().Take(10);
-            }
-
-            
+           
         }
 
         private void calculateOptimisedPrices(List<PriceDetail> prices)
@@ -98,12 +93,6 @@ namespace ProductsDB.Pages
 
                 else if (current.MarketId != previous.MarketId || current.CurrencyCode != previous.CurrencyCode)
                 {
-                    Console.WriteLine("new block start");
-
-                    Console.WriteLine(current.MarketId);
-                    Console.WriteLine(previous.MarketId);
-
-
                     // new market-currency block started
                     // 'close' previous block with base price
                     var item = CreateOptimisedPriceItem(
@@ -135,15 +124,6 @@ namespace ProductsDB.Pages
                     //var crentUntill = (DateTime)(current.ValidUntil is null ? prices[i + 1].ValidFrom : current.ValidUntil);
                     // compare validity time periods
                     //if (DateTime.Compare(current.ValidFrom, previous.ValidUntil) < 0)
-
-                    Console.WriteLine("comparing...");
-                    Console.WriteLine(previous.ValidUntil);
-                    Console.WriteLine(current.ValidUntil);
-
-                    Console.WriteLine(current.MarketId);
-                    Console.WriteLine(previous.MarketId);
-                    Console.WriteLine(current.CurrencyCode);
-                    Console.WriteLine(previous.CurrencyCode);
 
                     var compare = DateTime.Compare((DateTime)previous.ValidUntil, current.ValidFrom);
 
@@ -289,9 +269,6 @@ namespace ProductsDB.Pages
             }
 
             // Parse final items
-
-            
-
             if (!(previous.ValidUntil is null))
             {
                 var preFinalItem = CreateOptimisedPriceItem(
