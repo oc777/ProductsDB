@@ -37,15 +37,7 @@ namespace ProductsDB.Pages
 
             if (ShowProduct)
             {
-                // get price details for the product and sort by market->currency->date
-                ProductPrices = _context.PriceDetails.AsNoTracking()
-                    .Where(p => p.CatalogEntryCode == ProductId)
-                    .OrderBy(p => p.MarketId)
-                    .ThenBy(p => p.CurrencyCode)
-                    .ThenBy(p => p.ValidUntil);
-
-                OptimisedPrices = OptimisedPriceCalculator.Calculate(ProductPrices.ToList());
-
+                OptimisedPrices = OptimisedPriceCalculator.GetList(ProductId);
             }
         }
     }
