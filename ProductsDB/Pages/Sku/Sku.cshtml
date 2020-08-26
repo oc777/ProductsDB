@@ -23,13 +23,12 @@
         <tbody>
             @foreach (var item in Model.OptimisedPrices)
             {
-                var price = item.UnitPrice.ToString("#.##");
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.MarketId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => price)
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
                     </td>
                     <td>
                         @Html.DisplayFor(modelIem => item.CurrencyCode)
